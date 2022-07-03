@@ -15,6 +15,109 @@
     }
 
     hiddenLoader();
+
+    function populateBluetoothDevices() {
+        const devicesSelect = document.querySelector('#devicesSelect');
+        console.log('Getting existing permitted Bluetooth devices...');
+        navigator.bluetooth.getDevices()
+          .then(devices => {
+            console.log('> Got ' + devices.length + ' Bluetooth devices.');
+            devicesSelect.textContent = '';
+            for (const device of devices) {
+              const option = document.createElement('option');
+              option.value = device.id;
+              option.textContent = device.name;
+              devicesSelect.appendChild(option);
+            }
+          })
+          .catch(error => {
+            console.log('Argh! ' + error);
+          });
+      }
+
+      function onRequestBluetoothDeviceButtonClick() {
+        console.log('Requesting any Bluetooth device...');
+        navigator.bluetooth.requestDevice({
+          // filters: [...] <- Prefer filters to save energy & show relevant devices.
+          acceptAllDevices: true
+        })
+          .then(device => {
+            console.log(device)
+            console.log('> Requested ' + device.name + ' (' + device.id + ')');
+            populateBluetoothDevices();
+          })
+          .catch(error => {
+            console.log('Argh! ' + error);
+          });
+      }
+
+      class Bluetooth {
+
+        constructor() {
+          this.CANDLE_SERVICE_UUID = '00000003-0000-1000-800000805f9b34fb';
+          this.device = null;
+        }
+
+        connect() {
+          let options = { filters: [{ services: ['battery_service'] }] };
+
+          return navigator.bluetooth.requestDevice(options)
+            .then(device => {
+              this.device = device;
+            })
+            .catch(error => {
+              console.log('E! ' + error);
+            });
+        }
+
+      }
+
+      function isWebBluetoothEnabled() {
+        if (!navigator.bluetooth) {
+          console.log('Web Bluetooth API is not available in this browser!')
+          return false
+        }
+        return true
+      }
+
+      function connectBluetoothDevice() {
+        if (isWebBluetoothEnabled()) {
+          const bluetooth = new Bluetooth();
+
+          bluetooth.connect()
+            .then(() => {
+              console.log(bluetooth.device);
+              document.querySelector('#state').classList.add('connected');
+            })
+            .catch(error => {
+              console.error('Argh!', error);
+            });
+        }
+      }
+
+      function connect() {
+        const controlServiceUUID = '00000003-0000-1000-8000-00805f9b34fb'; // Full UUID
+        /*
+          OR
+        const controlServiceUUID = '0x0001';
+        */
+        return navigator.bluetooth.requestDevice({
+          acceptAllDevices: true,
+          optionalServices: ['battery_service']
+        })
+          .then(device => {
+            console.log('device ', device);
+            return device.gatt.connect();
+          })
+          .then(server => {
+            console.log('server ', server);
+            return server.getPrimaryService(controlServiceUUID);
+          })
+          .then(service => {
+            console.log('service ', service);
+            // Code to get characteristics, etc...
+          })
+      }
   </script>
   <style>
     /* Font */
