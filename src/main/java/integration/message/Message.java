@@ -4,12 +4,12 @@ public class Message {
 
     private String clientURL;
     private MessageType messageType;
-    private String message;
+    private String content;
 
-    public Message(String clientURL, MessageType messageType, String message) {
+    public Message(String clientURL, MessageType messageType, String content) {
         this.clientURL = clientURL;
         this.messageType = messageType;
-        this.message = message;
+        this.content = content;
     }
 
     public String getClientURL() {
@@ -28,12 +28,12 @@ public class Message {
         this.messageType = messageType;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String content) {
+        this.content = content;
     }
 
 }

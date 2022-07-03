@@ -15,6 +15,7 @@ import java.util.*;
  */
 public class ServicesSearch {
     private final UUID OBEX_FILE_TRANSFER = new UUID(0x0003);
+
     private final int maximumNumberOfTryToConnect = 10;
     final Object serviceSearchCompletedEvent = new Object();
     private final Map<String, ServiceRecord> serviceRecords = new HashMap<>();
@@ -28,25 +29,23 @@ public class ServicesSearch {
             for (Enumeration enumeration = remoteDeviceDiscovery.getDevices().elements(); enumeration.hasMoreElements(); ) {
                 RemoteDevice remoteDevice = (RemoteDevice) enumeration.nextElement();
 
-                if (remoteDevice.getBluetoothAddress().equals("38E39F6E4F37")) {
-                    synchronized (serviceSearchCompletedEvent) {
-                        int[] attrIDs = new int[]{
-                                0x0100 // Service name
-                        };
+                synchronized (serviceSearchCompletedEvent) {
+                    int[] attrIDs = new int[]{
+                            0x0100 // Service name
+                    };
 
-                        System.out.println("Trying to get services (try " + tryRound + ")");
+                    System.out.println("Trying to get services (try " + tryRound + ")");
 
-                        try {
-                            LocalDevice.getLocalDevice().getDiscoveryAgent().searchServices(attrIDs, new UUID[]{ OBEX_FILE_TRANSFER }, remoteDevice, servicesDiscoveryListener);
-                        } catch (BluetoothStateException e) {
-                            throw new RuntimeException(e);
-                        }
+                    try {
+                        LocalDevice.getLocalDevice().getDiscoveryAgent().searchServices(attrIDs, new UUID[]{ OBEX_FILE_TRANSFER }, remoteDevice, servicesDiscoveryListener);
+                    } catch (BluetoothStateException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                        try {
-                            serviceSearchCompletedEvent.wait();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+                    try {
+                        serviceSearchCompletedEvent.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }

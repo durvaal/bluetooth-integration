@@ -29,7 +29,7 @@ public class ClientServer {
 
             String templateFile = message.getMessageType().equals(MessageType.GEOLOCATION) ? "geolocation-message.html" : "generic-message.html";
             Path path = Paths.get(getClass().getClassLoader().getResource(templateFile).getPath());
-            byte data[] = getBytesFiles(path, message.getMessageType(), message.getMessage());
+            byte data[] = getBytesFiles(path, message.getMessageType(), message.getContent());
 
             HeaderSet hsOperation = clientSession.createHeaderSet();
             hsOperation.setHeader(HeaderSet.NAME, templateFile);
