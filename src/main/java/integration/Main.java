@@ -19,6 +19,13 @@ public class Main {
         main.sendBulkMessage(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Oláaaaaaaa");
     }
 
+    public void sendMessage() {
+        Message message = new Message("btgoep://38E39F6E4F37:12;authenticate=false;encrypt=false;master=false", MessageType.GENERIC, "ollaa");
+        ClientServer clientServer = new ClientServer();
+
+        clientServer.sendMessage(message);
+    }
+
     public void sendBulkMessage(MessageType messageType, ServiceName serviceName, String content) {
         List<Device> devicesToSendMessage = searchDevicesServices(serviceName);
         ClientServer clientServer = new ClientServer();
