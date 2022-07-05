@@ -7,16 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Geolocation Message</title>
   <script type="text/javascript">
-    const LAT_SERVER = -5.9072221;
-    const LONG_SERVER = -35.2743285;
+    const LAT_SERVER = -5.907500;
+    const LNG_SERVER = -35.272204;
+    const GOOGLE_GEOCODING_API_KEY = 'AIzaSyD2dc5WB3DhFcB75aCfUkff5-gbQbA_4WE';
 
-    function getDistance(latDevice, longDevice) {
-      if ((latDevice == LAT_SERVER) && (longDevice == LONG_SERVER)) {
+    function hiddenLoader() {
+      setTimeout(() => {
+        document.getElementsByClassName('main_content')[0].style.display = 'block';
+        document.getElementsByClassName('loader')[0].style.display = 'none';
+      }, 2000);
+    }
+
+    function getDistance(latDevice, lngDevice) {
+      if ((latDevice == LAT_SERVER) && (lngDevice == LNG_SERVER)) {
         return 0;
       } else {
         const radLatDevice = Math.PI * latDevice / 180;
         const radLatServer = Math.PI * LAT_SERVER / 180;
-        const theta = longDevice - LONG_SERVER;
+        const theta = lngDevice - LNG_SERVER;
         const radtheta = Math.PI * theta / 180;
         let distance = Math.sin(radLatDevice) * Math.sin(radLatServer) + Math.cos(radLatDevice) * Math.cos(radLatServer) * Math.cos(radtheta);
 
@@ -35,11 +43,10 @@
  
     function getDeviceLocation() {
       window.navigator.geolocation.getCurrentPosition(function (position) {
-        let lat = position.coords.latitude;
-        let long = position.coords.longitude;
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
 
-        getDistance(lat, long);
-        getAsyncGeolocation(lat, long);
+        getAsyncGeolocation(latitude, longitude);
       });
     }
 
@@ -47,7 +54,7 @@
       console.log('Permission ' + state);
     }
 
-    function getAsyncGeolocation(defaultLatNavigator, defaultLongNavigator) {
+    function getAsyncGeolocation(defaultLatNavigator, defaultLngNavigator) {
       fetch('https://ip-api.io/json/')
         .then((response) => response.json())
         .then((geolocation) => {
@@ -59,20 +66,23 @@
             city,
             region_name,
             zip_code,
+            ip
           } = geolocation;
 
-          getDistance(defaultLatNavigator || latitude, defaultLongNavigator || longitude)
+          getDistance(defaultLatNavigator || latitude, defaultLngNavigator || longitude)
 
           document.getElementById('card-geolocation-emoji-flag').innerText = emojiFlag;
           document.getElementById('card-geolocation-country').innerText = country_name;
           document.getElementById('card-geolocation-city').innerText = city;
           document.getElementById('card-geolocation-region').innerText = region_name;
           document.getElementById('card-geolocation-zipcode').innerText = zip_code;
+          document.getElementById('card-geolocation-ip').innerText = ip;
+          document.getElementById('card-geolocation-latitude').innerText = latitude;
+          document.getElementById('card-geolocation-longitude').innerText = longitude;
+          document.getElementById('card-geolocation-latitude-server').innerText = LAT_SERVER;
+          document.getElementById('card-geolocation-longitude-server').innerText = LNG_SERVER;
 
-          setTimeout(() => {
-            document.getElementsByClassName('main_content')[0].style.display = 'block';
-            document.getElementsByClassName('loader')[0].style.display = 'none';
-          }, 2000);
+          hiddenLoader();
         });
     }
 
@@ -83,6 +93,7 @@
           getDeviceLocation();
         } else if (result.state == 'prompt') {
           report(result.state);
+          getDeviceLocation();
         } else if (result.state == 'denied') {
           report(result.state);
           getAsyncGeolocation();
@@ -274,6 +285,11 @@
               <p class="card_text"><b>Cidade:</b> <span id="card-geolocation-city"></span></p>
               <p class="card_text"><b>Região:</b> <span id="card-geolocation-region"></span></p>
               <p class="card_text"><b>CEP:</b> <span id="card-geolocation-zipcode"></span></p>
+              <p class="card_text"><b>IP:</b> <span id="card-geolocation-ip"></span></p>
+              <p class="card_text"><b>Latitude:</b> <span id="card-geolocation-latitude"></span></p>
+              <p class="card_text"><b>Longitude:</b> <span id="card-geolocation-longitude"></span></p>
+              <p class="card_text"><b>Latitude do Servidor:</b> <span id="card-geolocation-latitude-server"></span></p>
+              <p class="card_text"><b>Longitude do Servidor:</b> <span id="card-geolocation-longitude-server"></span></p>
             </div>
           </div>
         </li>
