@@ -19,11 +19,11 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        // main.sendBulkMessageFromBluetoothDevices(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Oláaaaaaaa");
-        main.sendBulkMessageFromFixedListDevices(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Agora sim");
+        // main.sendBulkMessageFromBluetoothSearch(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Oláaaaaaaa");
+        main.sendBulkMessageFromBluetoothMacAddresses(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Agora sim");
     }
 
-    public void sendBulkMessageFromFixedListDevices(MessageType messageType, ServiceName serviceName, String content) {
+    public void sendBulkMessageFromBluetoothMacAddresses(MessageType messageType, ServiceName serviceName, String content) {
         ClientServer clientServer = new ClientServer();
         // Moto G, OBEX_OBJECT_PUSH connection URL: btgoep://38E39F6E4F37:12;authenticate=false;encrypt=false;master=false
         // Galaxy A10s, OBEX_OBJECT_PUSH connection URL: btgoep://78232762EE21:12;authenticate=false;encrypt=false;master=false
@@ -51,7 +51,7 @@ public class Main {
         System.out.println("Finish send bulk message to devices.\n");
     }
 
-    public void sendBulkMessageFromBluetoothDevices(MessageType messageType, ServiceName serviceName, String content) {
+    public void sendBulkMessageFromBluetoothSearch(MessageType messageType, ServiceName serviceName, String content) {
         List<Device> devicesToSendMessage = searchDevicesServices(serviceName);
         ClientServer clientServer = new ClientServer();
 
