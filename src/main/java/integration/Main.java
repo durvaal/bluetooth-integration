@@ -1,6 +1,5 @@
 package integration;
 
-import com.intel.bluetooth.RemoteDeviceHelper;
 import integration.bluetooth.ClientServer;
 import integration.bluetooth.ServiceName;
 import integration.bluetooth.ServicesSearch;
@@ -8,7 +7,6 @@ import integration.device.Device;
 import integration.message.Message;
 import integration.message.MessageType;
 
-import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +18,16 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         // main.sendBulkMessageFromBluetoothSearch(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Oláaaaaaaa");
-        main.sendBulkMessageFromBluetoothMacAddresses(MessageType.GENERIC, ServiceName.OBEX_OBJECT_PUSH, "Agora sim");
+        main.sendBulkMessageFromBluetoothMacAddresses(MessageType.GEOLOCATION, ServiceName.OBEX_OBJECT_PUSH, "Agora sim");
     }
 
     public void sendBulkMessageFromBluetoothMacAddresses(MessageType messageType, ServiceName serviceName, String content) {
         ClientServer clientServer = new ClientServer();
         // Moto G, OBEX_OBJECT_PUSH connection URL: btgoep://38E39F6E4F37:12;authenticate=false;encrypt=false;master=false
         // Galaxy A10s, OBEX_OBJECT_PUSH connection URL: btgoep://78232762EE21:12;authenticate=false;encrypt=false;master=false
-        List<String> bluetoothMacAddresses = new ArrayList<String>() {
+        List<String> bluetoothMacAddresses = new ArrayList<>() {
             {
                 add("38E39F6E4F37");
-                add("78232762EE21");
             }
         };
         List<Device> devicesToSendMessage = bluetoothMacAddresses.stream()

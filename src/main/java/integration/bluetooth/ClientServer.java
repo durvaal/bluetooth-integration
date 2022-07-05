@@ -50,21 +50,24 @@ public class ClientServer {
 
             clientSession.close();
 
-            System.out.println("Mensagem enviada");
+            System.out.println("Message sent");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public byte[] getBytesFiles(Path path, MessageType messageType, String message) {
+    /**
+     * In the case of the MessageType.GENERIC, the html template has a variable that is changed according to the content of the message informed when sending the bulk messages
+     */
+    public byte[] getBytesFiles(Path path, MessageType messageType, String content) {
         Charset charset = StandardCharsets.UTF_8;
         byte[] bytesFile = null;
 
         try {
             if (messageType.equals(MessageType.GENERIC)) {
-                String content = new String(Files.readAllBytes(path), charset);
-                content = content.replaceAll("template_message", message);
-                bytesFile = content.getBytes(charset);
+                String templateContent = new String(Files.readAllBytes(path), charset);
+                templateContent = templateContent.replaceAll("template_message", content);
+                bytesFile = templateContent.getBytes(charset);
             } else {
                 bytesFile = Files.readAllBytes(path);
             }
