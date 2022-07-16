@@ -1,6 +1,6 @@
 package integration.bluetooth.domain.device;
 
-import integration.bluetooth.infrastructure.ServiceType;
+import integration.bluetooth.domain.service.ServiceType;
 
 public class Device {
 

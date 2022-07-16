@@ -4,7 +4,7 @@ import integration.bluetooth.domain.device.Device;
 import integration.bluetooth.domain.message.MessageType;
 import integration.bluetooth.exception.ServiceTypeException;
 import integration.bluetooth.infrastructure.RemoteServiceDiscovery;
-import integration.bluetooth.infrastructure.ServiceType;
+import integration.bluetooth.domain.service.ServiceType;
 
 import javax.bluetooth.ServiceRecord;
 import java.util.List;

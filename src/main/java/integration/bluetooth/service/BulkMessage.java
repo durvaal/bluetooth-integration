@@ -5,7 +5,7 @@ import integration.bluetooth.domain.message.Message;
 import integration.bluetooth.domain.message.MessageType;
 import integration.bluetooth.exception.ServiceTypeException;
 import integration.bluetooth.infrastructure.ClientServer;
-import integration.bluetooth.infrastructure.ServiceType;
+import integration.bluetooth.domain.service.ServiceType;
 
 import java.util.List;
 

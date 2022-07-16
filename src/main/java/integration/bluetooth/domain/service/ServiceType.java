@@ -1,4 +1,4 @@
-package integration.bluetooth.infrastructure;
+package integration.bluetooth.domain.service;
 
 public enum ServiceType {
 

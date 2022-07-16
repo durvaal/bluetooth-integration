@@ -1,6 +1,6 @@
 package integration.bluetooth.application;
 
-import integration.bluetooth.infrastructure.ServiceType;
+import integration.bluetooth.domain.service.ServiceType;
 import integration.bluetooth.domain.message.MessageType;
 import integration.bluetooth.service.Transmission;
 
