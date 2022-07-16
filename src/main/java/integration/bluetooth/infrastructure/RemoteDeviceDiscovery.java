@@ -1,4 +1,4 @@
-package integration.bluetooth;
+package integration.bluetooth.infrastructure;
 
 import java.io.IOException;
 import java.util.Vector;

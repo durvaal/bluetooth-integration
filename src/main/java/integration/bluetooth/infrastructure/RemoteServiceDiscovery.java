@@ -1,4 +1,4 @@
-package integration.bluetooth;
+package integration.bluetooth.infrastructure;
 
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DataElement;
@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * ServicesSearch class used to find specific service on Bluetooth device. Each service identified using UUID (Universally unique identifier).
  */
-public class ServicesSearch {
+public class RemoteServiceDiscovery {
     private final UUID OBEX_FILE_TRANSFER = new UUID(0x0003);
 
     private final int maximumNumberOfTryToConnect = 10;
@@ -84,22 +84,22 @@ public class ServicesSearch {
                     continue;
                 }
 
-                String serviceName = getServiceName(serviceRecord);
-                serviceRecords.put(serviceName == null ? java.util.UUID.randomUUID().toString() : serviceName, serviceRecord);
+                String serviceType = getServiceType(serviceRecord);
+                serviceRecords.put(serviceType == null ? java.util.UUID.randomUUID().toString() : serviceType, serviceRecord);
 
-                System.out.println("service found " + url + (serviceName == null ? "" : ", name: " + serviceName));
+                System.out.println("service found " + url + (serviceType == null ? "" : ", name: " + serviceType));
             }
         }
     }
 
-    protected String getServiceName(ServiceRecord serviceRecord) {
-        DataElement serviceName = serviceRecord.getAttributeValue(0x0100);
+    protected String getServiceType(ServiceRecord serviceRecord) {
+        DataElement serviceType = serviceRecord.getAttributeValue(0x0100);
         String result;
 
-        if (serviceName == null) {
+        if (serviceType == null) {
             result = null;
         } else {
-            result = String.valueOf(serviceName.getValue());
+            result = String.valueOf(serviceType.getValue());
         }
 
         return result;

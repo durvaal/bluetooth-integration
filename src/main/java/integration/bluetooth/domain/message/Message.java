@@ -1,23 +1,23 @@
-package integration.message;
+package integration.bluetooth.domain.message;
 
 public class Message {
 
-    private String clientURL;
+    private String serviceConnectionURL;
     private MessageType messageType;
     private String content;
 
-    public Message(String clientURL, MessageType messageType, String content) {
-        this.clientURL = clientURL;
+    public Message(String serviceConnectionURL, MessageType messageType, String content) {
+        this.serviceConnectionURL = serviceConnectionURL;
         this.messageType = messageType;
         this.content = content;
     }
 
-    public String getClientURL() {
-        return clientURL;
+    public String getServiceConnectionURL() {
+        return serviceConnectionURL;
     }
 
-    public void setClientURL(String clientURL) {
-        this.clientURL = clientURL;
+    public void setServiceConnectionURL(String serviceConnectionURL) {
+        this.serviceConnectionURL = serviceConnectionURL;
     }
 
     public MessageType getMessageType() {

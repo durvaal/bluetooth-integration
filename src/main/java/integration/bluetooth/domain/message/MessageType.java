@@ -1,4 +1,4 @@
-package integration.message;
+package integration.bluetooth.domain.message;
 
 public enum MessageType {
 

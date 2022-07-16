@@ -1,7 +1,7 @@
-package integration.bluetooth;
+package integration.bluetooth.infrastructure;
 
-import integration.message.Message;
-import integration.message.MessageType;
+import integration.bluetooth.domain.message.Message;
+import integration.bluetooth.domain.message.MessageType;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,9 +17,9 @@ public class ClientServer {
 
     public void sendMessage(Message message) {
         try {
-            System.out.println("Connecting to server " + message.getClientURL());
+            System.out.println("Connecting to service URL " + message.getServiceConnectionURL());
 
-            ClientSession clientSession = (ClientSession) Connector.open(message.getClientURL());
+            ClientSession clientSession = (ClientSession) Connector.open(message.getServiceConnectionURL());
             HeaderSet hsConnectReply = clientSession.connect(null);
 
             if (hsConnectReply.getResponseCode() != ResponseCodes.OBEX_HTTP_OK) {

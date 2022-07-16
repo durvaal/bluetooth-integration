@@ -1,6 +1,6 @@
-package integration.bluetooth;
+package integration.bluetooth.infrastructure;
 
-public enum ServiceName {
+public enum ServiceType {
 
     HEADSET_GATEWAY("Headset Gateway"),
     HANDSFREE_GATEWAY("Handsfree Gateway"),
@@ -12,7 +12,7 @@ public enum ServiceName {
 
     public String name;
 
-    ServiceName(String name) {
+    ServiceType(String name) {
         this.name = name;
     }
 
