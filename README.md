@@ -29,7 +29,7 @@ A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (apl
 
 A aplicação teve a sua estrutura baseada em [Layered Architecture](https://www.baeldung.com/cs/layered-architecture), segue abaixo uma explicação superficial de cada camada e suas respectivas classes.
 
-![Diagrama das Camadas](./assets/readme/diagrama-camadas.png)
+![Diagrama das Camadas](./assets/readme/diagrama-camadas-pacotes.png)
 
 ## Contexto técnico
 
