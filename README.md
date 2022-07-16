@@ -21,6 +21,10 @@ A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (apl
 
     - ![Modelo de Mensagem Geolocalização](./assets/readme/geolocation-message.png)
 
+### Diagrama das classes
+
+![Diagrama das Classes](./assets/readme/diagrama-classe.png)
+
 ### Arquitetura
 
 A aplicação teve a sua estrutura baseada em [Layered Architecture](https://www.baeldung.com/cs/layered-architecture), segue abaixo uma explicação superficial de cada camada e suas respectivas classes.
