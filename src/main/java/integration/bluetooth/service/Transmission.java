@@ -2,6 +2,7 @@ package integration.bluetooth.service;
 
 import integration.bluetooth.domain.device.Device;
 import integration.bluetooth.domain.message.MessageType;
+import integration.bluetooth.exception.ServiceTypeException;
 import integration.bluetooth.infrastructure.RemoteServiceDiscovery;
 import integration.bluetooth.infrastructure.ServiceType;
 
@@ -14,13 +15,21 @@ import java.util.stream.Stream;
 public class Transmission implements BulkMessage {
 
     public void fromBluetoothMacAddresses(MessageType messageType, ServiceType serviceType, String content, String... bluetoothMacAddresses) {
-        List<Device> devicesToSendMessage = retrieveDevicesByMacAddresses(serviceType, bluetoothMacAddresses);
-        send(messageType, serviceType, content, devicesToSendMessage);
+        try {
+            List<Device> devicesToSendMessage = retrieveDevicesByMacAddresses(serviceType, bluetoothMacAddresses);
+            send(messageType, serviceType, content, devicesToSendMessage);
+        } catch (ServiceTypeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void fromBluetoothDeviceDiscovery(MessageType messageType, ServiceType serviceType, String content) {
-        List<Device> devicesToSendMessage = discoverDevicesServices(serviceType);
-        send(messageType, serviceType, content, devicesToSendMessage);
+        try {
+            List<Device> devicesToSendMessage = discoverDevicesServices(serviceType);
+            send(messageType, serviceType, content, devicesToSendMessage);
+        } catch (ServiceTypeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<Device> retrieveDevicesByMacAddresses(ServiceType serviceType, String... bluetoothMacAddresses) {
