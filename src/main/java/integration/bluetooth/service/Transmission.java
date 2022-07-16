@@ -1,7 +1,8 @@
 package integration.bluetooth.service;
 
 import integration.bluetooth.domain.device.Device;
-import integration.bluetooth.domain.message.MessageType;
+import integration.bluetooth.domain.message.Message;
+import integration.bluetooth.exception.MessageTypeException;
 import integration.bluetooth.exception.ServiceTypeException;
 import integration.bluetooth.infrastructure.RemoteServiceDiscovery;
 import integration.bluetooth.domain.service.ServiceType;
@@ -20,30 +21,37 @@ public class Transmission implements BulkMessage {
 
     /**
      * Permite transmitir mensagem diretamente para os dispositivos desejados.
-     * @param messageType o tipo do template da mensagem.
+     * @param message o tipo de mensagem que é uma instância da classe Message.
      * @param serviceType o tipo de serviço Bluetooth utilizado, atualmente suporta apenas o tipo OBEX_OBJECT_PUSH.
      * @param content o conteúdo da mensagem, apenas o tipo de mensagem GENERIC faz uso desse atributo em seu template.
      * @param bluetoothMacAddresses os endereços bluetooth dos dispositivos, podendo ser um ou mais (varargs).
      */
-    public void fromBluetoothMacAddresses(MessageType messageType, ServiceType serviceType, String content, String... bluetoothMacAddresses) {
+    public void fromBluetoothMacAddresses(Message message, ServiceType serviceType, String content, String... bluetoothMacAddresses) {
         try {
             List<Device> devicesToSendMessage = retrieveDevicesByMacAddresses(serviceType, bluetoothMacAddresses);
-            send(messageType, serviceType, content, devicesToSendMessage);
+
+            send(message, serviceType, content, devicesToSendMessage);
         } catch (ServiceTypeException e) {
+            System.err.println(e.getMessage());
+        } catch (MessageTypeException e) {
             System.err.println(e.getMessage());
         }
     }
 
     /**
      * Permite transmitir mensagem diretamente para os dispositivos descobertos na varredura do Bluetooth.
-     * @param messageType o tipo do template da mensagem.
+     * @param message o tipo de mensagem que é uma instância da classe Message.
+     * @param serviceType o tipo de serviço Bluetooth utilizado, atualmente suporta apenas o tipo OBEX_OBJECT_PUSH.
+     * @param content o conteúdo da mensagem, apenas o tipo de mensagem GENERIC faz uso desse atributo em seu template.
      * @param serviceType o tipo de serviço Bluetooth utilizado, atualmente suporta apenas o tipo OBEX_OBJECT_PUSH.
      */
-    public void fromBluetoothDeviceDiscovery(MessageType messageType, ServiceType serviceType) {
+    public void fromBluetoothDeviceDiscovery(Message message, ServiceType serviceType, String content) {
         try {
             List<Device> devicesToSendMessage = discoverDevicesServices(serviceType);
-            send(messageType, serviceType, null, devicesToSendMessage);
+            send(message, serviceType, content, devicesToSendMessage);
         } catch (ServiceTypeException e) {
+            System.err.println(e.getMessage());
+        } catch (MessageTypeException e) {
             System.err.println(e.getMessage());
         }
     }
