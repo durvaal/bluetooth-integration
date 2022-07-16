@@ -1,5 +1,9 @@
 package integration.bluetooth.domain.service;
 
+/**
+ * Enum responsável por definir os tipos de serviços para comunicação bluetooth. Atualmente apenas o tipo OBEX_OBJECT_PUSH é suportado.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public enum ServiceType {
 
     HEADSET_GATEWAY("Headset Gateway"),

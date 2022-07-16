@@ -11,7 +11,8 @@ import javax.bluetooth.UUID;
 import java.util.*;
 
 /**
- * ServicesSearch class used to find specific service on Bluetooth device. Each service identified using UUID (Universally unique identifier).
+ * Classe responsável por realizar a descoberta dos serviços de bluetooth disponíveis dos dispositivos encontrados.
+ * @author Paulo Lima (durvaal - GitHub user)
  */
 public class RemoteServiceDiscovery {
     private final UUID OBEX_FILE_TRANSFER = new UUID(0x0003);
@@ -20,6 +21,10 @@ public class RemoteServiceDiscovery {
     final Object serviceSearchCompletedEvent = new Object();
     private final Map<String, ServiceRecord> serviceRecords = new HashMap<>();
 
+    /**
+     * Realizar a busca dos serviços disponíveis a partir dos dispositivos encontrados na classe RemoteDeviceDiscovery.
+     * @return Map<String, ServiceRecord> lista dos serviços tendo como chave o tipo do serviço.
+     */
     public Map<String, ServiceRecord> findServices() {
         ServicesDiscoveryListener servicesDiscoveryListener = new ServicesDiscoveryListener();
         RemoteDeviceDiscovery remoteDeviceDiscovery = new RemoteDeviceDiscovery();

@@ -2,6 +2,10 @@ package integration.bluetooth.domain.device;
 
 import integration.bluetooth.domain.service.ServiceType;
 
+/**
+ * Classe responsável por representar os atributos de um dispositivos necessários para armazena os dados descobertos e utilizá-los nos envios das mensagens.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public class Device {
 
     private ServiceType serviceName;

@@ -10,10 +10,15 @@ import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
 /**
-* RemoteDeviceDiscovery class is used to find paired and near by devices.
-*/
+ * Classe responsável por realizar a descoberta dos dispositivos.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public class RemoteDeviceDiscovery {
 
+    /**
+     * Realiza a busca dos dispositivos a partir do protocolo de comunicação bluetooth.
+     * @return Vector lista de dispositivos descobertos.
+     */
     public Vector getDevices() {
         /* Create Vector variable */
         final Vector devicesDiscovered = new Vector();

@@ -14,8 +14,16 @@ import java.nio.file.Paths;
 import javax.microedition.io.Connector;
 import javax.obex.*;
 
+/**
+ * Classe responsável por enviar as mensagens aos dispositivos.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public class ClientServer {
 
+    /**
+     * A partir das informações de URL de conexão com dispositivo, tipo da mensagem e conteúdo será enviada a mensagem.
+     * @param message Mensagem que será enviada ao dispositivo.
+     */
     public void sendMessage(Message message) {
         try {
             System.out.println("Connecting to service URL " + message.getServiceConnectionURL());
@@ -57,8 +65,14 @@ public class ClientServer {
         }
     }
 
+
     /**
-     * In the case of the MessageType.GENERIC, the html template has a variable that is changed according to the content of the message informed when sending the bulk messages
+     * Busca os arquivos de template utilizados na transmissão das mensagens.
+     * No caso do MessageType.GENERIC, o template HTML possui uma variável que é alterada de acordo com o conteúdo da mensagem informada ao enviar as mensagens em massa.
+     * @param path caminha do arquivo de template.
+     * @param messageType o tipo do template da mensagem.
+     * @param content o tipo do template da mensagem.
+     * @return byte[] o arquivo de template.
      */
     public byte[] getBytesFiles(Path path, MessageType messageType, String content) {
         Charset charset = StandardCharsets.UTF_8;

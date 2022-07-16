@@ -1,5 +1,9 @@
 package integration.bluetooth.domain.message;
 
+/**
+ * Classe responsável por representar os atributos de uma mensagem necessários para os envios das mensagens.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public class Message {
 
     private String serviceConnectionURL;

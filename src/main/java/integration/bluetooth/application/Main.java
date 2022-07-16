@@ -4,6 +4,10 @@ import integration.bluetooth.domain.service.ServiceType;
 import integration.bluetooth.domain.message.MessageType;
 import integration.bluetooth.service.Transmission;
 
+/**
+ * Classe responsável por dar inicio a aplicação instanciando a classe Transmission.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
 public class Main {
 
     public static void main(String[] args) {
