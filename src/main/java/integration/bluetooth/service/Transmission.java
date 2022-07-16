@@ -19,16 +19,16 @@ public class Transmission implements BulkMessage {
             List<Device> devicesToSendMessage = retrieveDevicesByMacAddresses(serviceType, bluetoothMacAddresses);
             send(messageType, serviceType, content, devicesToSendMessage);
         } catch (ServiceTypeException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
     }
 
-    public void fromBluetoothDeviceDiscovery(MessageType messageType, ServiceType serviceType, String content) {
+    public void fromBluetoothDeviceDiscovery(MessageType messageType, ServiceType serviceType) {
         try {
             List<Device> devicesToSendMessage = discoverDevicesServices(serviceType);
-            send(messageType, serviceType, content, devicesToSendMessage);
+            send(messageType, serviceType, null, devicesToSendMessage);
         } catch (ServiceTypeException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
     }
 

@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface BulkMessage {
 
-
     default void send(MessageType messageType, ServiceType serviceType, String content, List<Device> devicesToSendMessage) throws ServiceTypeException {
             if (!serviceType.equals(ServiceType.OBEX_OBJECT_PUSH)) {
                 throw new ServiceTypeException("Tipo de serviço não suportado.");

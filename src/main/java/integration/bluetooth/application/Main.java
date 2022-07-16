@@ -12,7 +12,7 @@ public class Main {
 
         Transmission transmission = new Transmission();
         transmission.fromBluetoothMacAddresses(MessageType.GEOLOCATION, ServiceType.OBEX_OBJECT_PUSH, "Atenção", "38E39F6E4F37");
-        // transmission.fromBluetoothDeviceDiscovery(MessageType.GENERIC, ServiceType.OBEX_OBJECT_PUSH, "Atenção");
+        transmission.fromBluetoothDeviceDiscovery(MessageType.GENERIC, ServiceType.OBEX_OBJECT_PUSH);
     }
 
 }
