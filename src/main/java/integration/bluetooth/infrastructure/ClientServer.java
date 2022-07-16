@@ -2,6 +2,7 @@ package integration.bluetooth.infrastructure;
 
 import integration.bluetooth.domain.message.Message;
 import integration.bluetooth.domain.message.MessageType;
+import integration.bluetooth.exception.MessageContentException;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -65,12 +66,18 @@ public class ClientServer {
 
         try {
             if (messageType.equals(MessageType.GENERIC)) {
+                if (content == null) {
+                    throw new MessageContentException("O conteúdo da mensagem não pode ser nulo para o tipo de mensagem GENERIC.");
+                }
+
                 String templateContent = new String(Files.readAllBytes(path), charset);
                 templateContent = templateContent.replaceAll("template_message", content);
                 bytesFile = templateContent.getBytes(charset);
             } else {
                 bytesFile = Files.readAllBytes(path);
             }
+        } catch (MessageContentException e) {
+            System.err.println(e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
