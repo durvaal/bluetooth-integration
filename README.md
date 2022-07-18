@@ -112,7 +112,7 @@ No caso do método de transmissão `fromBluetoothDeviceDiscovery` pode ser que o
 
 Após a execução serão logada algumas informações no console do IntelliJ, o dispositivo descoberto receberá uma notificação solicitando a permissão para receber o arquivo, após isso, o arquivo pode ser aberto e o conteúdo HTML será renderizado no dispositivo de destino.
 
-Com isso, é possível receber mensagem para um ou mais dispositivos, enviando para mais de um dispositivo é interessante perceber a chegada da mensagem de forma paralela e não de forma sequencial por dispositivo, graças ao disparo de mensagem a partir do `parallelStream`.
+Com isso, é possível receber mensagem para um ou mais dispositivos, enviando para mais de um dispositivo é interessante perceber a chegada da mensagemé de forma serial.
 
 ## 🤝 Colaboradores
 
