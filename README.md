@@ -62,14 +62,51 @@ Há dois métodos principais de transmissão de mensagem:
 
   * `fromBluetoothMacAddresses`: permite transmitir mensagem diretamente para os dispositivos desejados.
     * Parâmetros:
-      * [MessageType](./src/main/java/integration/bluetooth/domain/message/MessageType.java): permite definir o tipo do template da mensagem.
+      * [Message](./src/main/java/integration/bluetooth/domain/message/Message.java): permite definir a instância do tipo da mensagem, existem dois tipos que estendem da classe [Message](./src/main/java/integration/bluetooth/domain/message/Message.java):
+        * [MessageGeneric](./src/main/java/integration/bluetooth/domain/message/MessageGeneric.java)
+        * [MessageGeolocation](./src/main/java/integration/bluetooth/domain/message/MessageGeolocation.java)
       * [ServiceType](./src/main/java/integration/bluetooth/infrastructure/ServiceType.java): permite definir o tipo de serviço Bluetooth utilizado, atualmente suporta apenas o tipo `OBEX_OBJECT_PUSH`. 
       * content: permite definir o conteúdo da mensagem, apenas o tipo de mensagem `GENERIC` faz uso desse atributo em seu template.
       * bluetoothMacAddresses: permite definir os endereços bluetooth dos dispositivos, podendo ser um ou mais (varargs).
   * `fromBluetoothDeviceDiscovery`: permite transmitir mensagem diretamente para os dispositivos descobertos na varredura do Bluetooth.
     * Parâmetros:
+      * [Message](./src/main/java/integration/bluetooth/domain/message/Message.java): permite definir a instância do tipo da mensagem, existem dois tipos que estendem da classe [Message](./src/main/java/integration/bluetooth/domain/message/Message.java):
+        * [MessageGeneric](./src/main/java/integration/bluetooth/domain/message/MessageGeneric.java)
+        * [MessageGeolocation](./src/main/java/integration/bluetooth/domain/message/MessageGeolocation.java)
       * [MessageType](./src/main/java/integration/bluetooth/domain/message/MessageType.java): permite definir o tipo do template da mensagem.
       * [ServiceType](./src/main/java/integration/bluetooth/infrastructure/ServiceType.java): permite definir o tipo de serviço Bluetooth utilizado, atualmente suporta apenas o tipo `OBEX_OBJECT_PUSH`. 
+
+Exemplos de execução:
+
+```java
+package integration.bluetooth.application;
+
+import integration.bluetooth.domain.message.MessageGeneric;
+import integration.bluetooth.domain.message.MessageGeolocation;
+import integration.bluetooth.domain.service.ServiceType;
+import integration.bluetooth.service.Transmission;
+
+/**
+ * Classe responsável por dar inicio a aplicação instanciando a classe Transmission.
+ * @author Paulo Lima (durvaal - GitHub user)
+ */
+public class Main {
+
+  public static void main(String[] args) {
+    // Instancie a classe Transmission
+    Transmission transmission = new Transmission();
+    // Envie uma mensagem genérica informando o endereço bluetooth do dispositivo
+    transmission.fromBluetoothMacAddresses(new MessageGeneric(), ServiceType.OBEX_OBJECT_PUSH, "Atenção", "38E39F6E4F37");
+    // Envie uma mensagem de gelocalização informando o endereço bluetooth do dispositivo
+    transmission.fromBluetoothMacAddresses(new MessageGeolocation(), ServiceType.OBEX_OBJECT_PUSH, "Atenção", "38E39F6E4F37");
+    // Envie uma mensagem genérica descrobrindo o dispositivo através da rede bluetooth
+    transmission.fromBluetoothDeviceDiscovery(new MessageGeneric(), ServiceType.OBEX_OBJECT_PUSH, "Atenção");
+    // Envie uma mensagem de gelocalização descrobrindo o dispositivo através da rede bluetooth
+    transmission.fromBluetoothDeviceDiscovery(new MessageGeolocation(), ServiceType.OBEX_OBJECT_PUSH, "Atenção");
+  }
+
+}
+```
 
 No caso do método de transmissão `fromBluetoothDeviceDiscovery` pode ser que o dispositivo demore a ser encontrado, mesmo que o bluetooth de ambos estejam ativos, obtive mais sucesso ao parear antes da execução os dispositivos, mas sim, é possível fazer isso sem o prévio pareamento. Ainda é incerto a causa exata de em determinadas execuções o dispositivo ser descoberto ou não.
 
