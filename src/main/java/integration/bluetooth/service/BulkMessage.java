@@ -31,7 +31,7 @@ public interface BulkMessage {
 
         System.out.println("\nInit send bulk message to " + devicesToSendMessage.size() + " devices.");
 
-        devicesToSendMessage.parallelStream().forEach(device -> {
+        devicesToSendMessage.forEach(device -> {
             message.setServiceConnectionURL(device.getServiceConnectionURL());
             message.setContent(content);
 

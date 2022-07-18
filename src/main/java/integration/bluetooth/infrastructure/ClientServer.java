@@ -55,7 +55,7 @@ public class ClientServer {
 
             System.out.println("Message sent");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
     }
 
