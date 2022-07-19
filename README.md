@@ -2,9 +2,9 @@
 
 ## Contexto de negócio
 
-O intuito do projeto é permitir a comunicação entre dispositvos por meio do protocolo de comunicação Bluetooth. É o começo de um estudo que visa integrar aplicações Java com a [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API), mas a Web Bluetooth API ainda é um recurso experimental, e este projeto também não fez implementações do lado WEB utilizado essa API.
+O intuito do projeto é permitir a comunicação entre dispositvos por meio do protocolo de comunicação Bluetooth. É o começo de um estudo que visa integrar aplicações Java com a [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API), mas a Web Bluetooth API ainda é um recurso experimental, e este projeto também não fez implementações do lado WEB utilizando essa API.
 
-A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (aplicação java) para o(s) dispositvo(s) (smartphone). Há também uma restrição quanto ao tipo de serviço Bluetooth suportado, a aplicação suporta até então apenas o serviço `OBEX Push`, que permite a transmissão de arquivos.
+A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (aplicação java) para o(s) dispositivo(s) (smartphone). Há também uma restrição quanto ao tipo de serviço Bluetooth suportado, a aplicação suporta até então apenas o serviço `OBEX Push`, que permite a transmissão de arquivos.
 
 ![Diagrama Geral](./assets/readme/diagrama-geral.png)
 
@@ -16,7 +16,7 @@ A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (apl
 
     - ![Modelo de Mensagem Genérica](./assets/readme/generic-message.png)
 
-  - GEOLOCATION: a aplicação entrega uma página que calcula a distância do servidor e o dispositvo.
+  - GEOLOCATION: a aplicação entrega uma página que calcula a distância entre o servidor e o dispositvo.
     - A localização do servidor é inputada manualmente no arquivo [geolocation-message.html](./src/main/resources/geolocation-message.html), nas variáveis `LAT_SERVER` e `LNG_SERVER`.
 
     - ![Modelo de Mensagem Geolocalização](./assets/readme/geolocation-message.png)
@@ -27,7 +27,7 @@ A comunicação atualmente ocorre de forma unidirecional, sendo do servidor (apl
 
 ### Arquitetura
 
-A aplicação teve a sua estrutura baseada em [Layered Architecture](https://www.baeldung.com/cs/layered-architecture), segue abaixo uma explicação superficial de cada camada e suas respectivas classes.
+A aplicação teve a sua estrutura baseada em [Layered Architecture](https://www.baeldung.com/cs/layered-architecture), segue abaixo um diagrama de cada camada e suas respectivas classes.
 
 ![Diagrama das Camadas](./assets/readme/diagrama-camadas.png)
 
@@ -38,13 +38,13 @@ Como referência de estudo para as API's Bluetooth com Java, houve dois artigos 
  - [Using the Java APIs for Bluetooth Wireless Technology, Part 1 - API Overview](https://www.oracle.com/technical-resources/articles/javame/bluetooth-wireless-technology-part1.html)
  - [Using the Java APIs for Bluetooth, Part 2 - Putting the Core APIs to Work](https://www.oracle.com/technical-resources/articles/javame/bluetooth-wireless-technology-part2.html)
 
-Além disso, o estudo sobre uma fatia das [especificações bluetooth](https://www.bluetooth.com/specifications/assigned-numbers/).
+Além disso, o estudo sobre uma parte das [especificações bluetooth](https://www.bluetooth.com/specifications/assigned-numbers/).
 
 Para realizar a descoberta de dispositvos através do Bluetooth foi utilizado a biblioteca Java [BlueCove](http://bluecove.org/). A própria BlueCove fornece alguns [exemplos de implementação](http://www.bluecove.org/bluecove-examples/index.html) para que possamos ter um início mais rápido, além disso, há algumas [restrições](https://code.google.com/archive/p/bluecove/wikis/stacks.wiki?authuser=0) a respeito das stacks que o BlueCove suporta. A [biblioteca](https://mvnrepository.com/artifact/io.ultreia/bluecove/2.1.1) está disponível no Maven.
 
 Foi utilizado para desenvolvimento o SO Linux Ubuntu 20.04.4 LTS e o ambiente IntelliJ IDEA.
 
-*P.S.: Para utlizar no o BlueCove enfrentei problemas ao executar o projeto, similar a [esse problema reportado no stack overflow](https://stackoverflow.com/questions/30946821/bluecove-with-bluez-chucks-can-not-open-sdp-session-2-no-such-file-or-direct), para o meu ambiente bastou iniciar o IntelliJ com sudo.*
+*P.S.: Para utlizar o BlueCove enfrentei problemas ao executar o projeto, similar a [esse problema reportado no stack overflow](https://stackoverflow.com/questions/30946821/bluecove-with-bluez-chucks-can-not-open-sdp-session-2-no-such-file-or-direct), para o meu ambiente bastou iniciar o IntelliJ com sudo.*
 
 ## Como executar
 
@@ -99,9 +99,9 @@ public class Main {
     transmission.fromBluetoothMacAddresses(new MessageGeneric(), ServiceType.OBEX_OBJECT_PUSH, "Atenção", "38E39F6E4F37");
     // Envie uma mensagem de gelocalização informando o endereço bluetooth do dispositivo
     transmission.fromBluetoothMacAddresses(new MessageGeolocation(), ServiceType.OBEX_OBJECT_PUSH, "Atenção", "38E39F6E4F37");
-    // Envie uma mensagem genérica descrobrindo o dispositivo através da rede bluetooth
+    // Envie uma mensagem genérica descobrindo o dispositivo através da rede bluetooth
     transmission.fromBluetoothDeviceDiscovery(new MessageGeneric(), ServiceType.OBEX_OBJECT_PUSH, "Atenção");
-    // Envie uma mensagem de gelocalização descrobrindo o dispositivo através da rede bluetooth
+    // Envie uma mensagem de gelocalização descobrindo o dispositivo através da rede bluetooth
     transmission.fromBluetoothDeviceDiscovery(new MessageGeolocation(), ServiceType.OBEX_OBJECT_PUSH, "Atenção");
   }
 
@@ -112,7 +112,7 @@ No caso do método de transmissão `fromBluetoothDeviceDiscovery` pode ser que o
 
 Após a execução serão logada algumas informações no console do IntelliJ, o dispositivo descoberto receberá uma notificação solicitando a permissão para receber o arquivo, após isso, o arquivo pode ser aberto e o conteúdo HTML será renderizado no dispositivo de destino.
 
-Com isso, é possível receber mensagem para um ou mais dispositivos, enviando para mais de um dispositivo é interessante perceber a chegada da mensagemé de forma serial.
+Com isso, é possível receber mensagem para um ou mais dispositivos, enviando para mais de um dispositivo é interessante perceber a chegada da mensage é de forma serial, e não de forma paralela.
 
 ## Vídeo de apresentação
 
