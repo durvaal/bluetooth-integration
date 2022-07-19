@@ -114,6 +114,10 @@ Após a execução serão logada algumas informações no console do IntelliJ, o
 
 Com isso, é possível receber mensagem para um ou mais dispositivos, enviando para mais de um dispositivo é interessante perceber a chegada da mensagemé de forma serial.
 
+## Vídeo de apresentação
+
+Acesse [esse link](https://drive.google.com/file/d/1oC7hZMD6kpBnneyIYOHM6gGcsM0Aekyz/view?usp=sharing).
+
 ## 🤝 Colaboradores
 
 <table>
